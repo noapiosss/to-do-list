@@ -1,0 +1,92 @@
+body
+{
+    background-color: #F0F2F5;
+}
+
+.sing-up-form
+{
+    width: 20rem;
+    border-radius: 7px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: white;
+    box-shadow: 0px 0px 15px 10px rgba(221, 221, 221, 0.623);
+    
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    -ms-transform: translateY(-50%) translateX(-50%);
+    transform: translateY(-50%) translateX(-50%);
+}
+
+.sign-in-element
+{
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.input-element
+{
+    border: solid 1px;
+    border-color: #D9D9D9;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #E9F0FE;
+    width: 90%;
+}
+
+.input-element:hover
+{
+    border-color: #59ACFF;
+}
+
+.input-element:focus
+{
+    box-shadow: 0px 0px 0px 2px rgba(89, 172, 255, 0.4);
+    border: solid 1px;
+    border-color: #59ACFF;
+    outline: none;
+}
+
+.sign-in-header
+{
+    margin-bottom: 50px;
+}
+
+.sign-up-link-wrapper
+{
+    margin-top: 5px;
+    margin-right: 5%;
+    text-align: right;
+}
+
+.sign-up-link
+{
+    text-decoration: none;
+    color:  #3295FF;
+}
+
+.sign-up-link:hover
+{
+    cursor: pointer;
+    color:  rgba(50, 149, 255, 0.8);
+}
+
+.sign-in-button-enable
+{
+    color: white;
+    border: none;
+    padding: 10px;
+    background-color: #3095FF;
+    margin-top: 20px;
+}
+
+.sign-in-button-disable
+{
+    color: white;
+    border: none;
+    padding: 10px;
+    background-color: #97CAFF;
+    margin-top: 20px;
+}
