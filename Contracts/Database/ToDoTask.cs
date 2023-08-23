@@ -22,7 +22,7 @@ namespace Contracts.Database
         public DateTime CreationDateTime { get; set; }
 
         [Column("completion_date_time")]
-        public DateOnly CompletionDateTime { get; set; }
+        public DateTime? CompletionDateTime { get; set; }
 
         [Column("to_do_list_id")]
         public int ToDoListId { get; set; }
