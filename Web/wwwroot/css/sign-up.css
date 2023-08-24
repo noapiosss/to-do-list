@@ -49,6 +49,29 @@ body
     outline: none;
 }
 
+.input-element-warning
+{
+    border: solid 1px;
+    border-color: red;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #FEEAE9;
+    width: 90%;
+}
+
+.input-element-warning:hover
+{
+    border-color: red;
+}
+
+.input-element-warning:focus
+{
+    box-shadow: 0px 0px 0px 2px rgba(248, 209, 209, 1);
+    border: solid 1px;
+    border-color: red;
+    outline: none;
+}
+
 .sign-up-header
 {
     margin-bottom: 50px;

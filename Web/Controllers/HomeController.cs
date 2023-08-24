@@ -1,5 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Web.Models;
 
 namespace Web.Controllers;
@@ -18,7 +19,12 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult Privacy()
+    public IActionResult SignIn()
+    {
+        return View();
+    }
+
+    public IActionResult SignUp()
     {
         return View();
     }
