@@ -29,7 +29,8 @@ submitBtn.onclick = () =>
         }        
     })
     .then((result) => {
-        localStorage.setItem("jwt", result.token)
-        window.location.replace(`${document.location.origin}/home`)
+        document.cookie = `jwt=${result.token};path=/;`
+        //cookie.setItem("jwt", result.token)
+        window.location.replace(`${document.location.origin}/list/mylists`)
     })
 }

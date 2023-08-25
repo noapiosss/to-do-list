@@ -1,0 +1,56 @@
+@model Contracts.DTO.ToDoListTasksPage
+
+@{
+    ViewData["Title"] = "List tasts";
+}
+
+<link rel="stylesheet" href="~/css/list-tasks.css" />
+
+<div class="asd">
+    <h1 class="display-4">@Model.Name</h1>
+    <p>@Model.Description<p>
+
+    @foreach(Contracts.DTO.ToDoTaskDTO task in Model.ToDoTaskDTOs)
+    {
+        <div id=@task.Id class="task-wrapper task-in-progress">
+            <div class="task-status">
+                <input type="checkbox" class="task-checkbox">
+            </div>
+
+            <div class="task-info">
+                <div class="task-name-description">
+                    <div class="task-name">@task.Name</div>
+                    <div class="task-description">@task.Description</div>
+                </div>
+                
+                <div class="task-start-end">
+                    <div class="task-creation-date">Start at: @task.CreationDateTime</div>
+                    <div class="task-completion-date">End at: @task.CompletionDateTime</div>
+                </div>
+
+                <div class="task-delete-btn-wrapper">
+                    <button class="task-delete-btn" data-id=@task.Id>Delete</button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="add-new-task-wrapper">
+        <div class="add-new-task-inputs-wrapper">
+            <div class="add-new-task-name-wrapper">
+                <input type="text" placeholder="name" class="new-task-name">
+            </div>
+
+            <div class="add-new-task-description-wrapper">
+                <input type="text" placeholder="description" class="new-task-description">
+            </div>
+        </div>
+
+        <div class="add-new-task-submit-btn-wrapper">
+            <button class="add-new-task-submit-btn">Add</button>
+        </div>        
+    </div>
+    
+</div>
+
+<script src="~/js/list-tasks.js"></script>

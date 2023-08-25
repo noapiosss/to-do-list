@@ -34,7 +34,7 @@ namespace Domain.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-           
+           optionsBuilder.UseNpgsql("Uid=postgres;Pwd=fyfnjksq123;Host=localhost:5432;Database=to_do_lists_db;");
         }
     }
 }

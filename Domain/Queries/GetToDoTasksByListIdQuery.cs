@@ -20,7 +20,7 @@ namespace Domain.Queries
 
     public class GetToDoTasksByListIdQueryResult
     {
-        public ICollection<ToDoTaskDTO> ToDoTasks { get; init; }
+        public ToDoListTasksPage ToDoListTasksPage { get; set; }
     }
 
     internal class GetToDoTasksByListIdQueryHandler : BaseHandler<GetToDoTasksByListIdQuery, GetToDoTasksByListIdQueryResult>
@@ -39,11 +39,23 @@ namespace Domain.Queries
             {
                 return new()
                 {
-                    ToDoTasks = null
+                    ToDoListTasksPage = null
                 };
             }
 
-            List<ToDoTaskDTO> toDoTaskDTOs = await _dbContext.ToDoTasks
+            ToDoListTasksPage toDoListTasksPage = await _dbContext.ToDoLists
+                .Where(tdl => tdl.Id == request.ToDoListId)
+                .Select(tdl => new ToDoListTasksPage() 
+                {
+                    Id = tdl.Id,
+                    Name = tdl.Name,
+                    Description = tdl.Description,
+                    CreationDateTime = tdl.CreationDateTime,
+                    CompletionDateTime = tdl.CompletionDateTime
+                })
+                .FirstAsync(cancellationToken);
+
+            toDoListTasksPage.ToDoTaskDTOs = await _dbContext.ToDoTasks
                 .Where(tdt => tdt.ToDoListId == request.ToDoListId)
                 .Select(tdl => new ToDoTaskDTO() 
                 {
@@ -57,7 +69,7 @@ namespace Domain.Queries
 
             return new()
             {
-                ToDoTasks = toDoTaskDTOs
+                ToDoListTasksPage = toDoListTasksPage
             };
         }
     }

@@ -2,6 +2,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Contracts.Database;
+using Contracts.DTO;
 using Domain.Base;
 using Domain.Database;
 using MediatR;
@@ -19,7 +20,7 @@ namespace Domain.Commands
 
     public class CreateToDoTaskCommandResult
     {
-        public int ToDoTaskId { get; init; }
+        public ToDoTaskDTO ToDoTaskDTO { get; init; }
     }
 
     internal class CreateToDoTaskCommandHandler : BaseHandler<CreateToDoTaskCommand, CreateToDoTaskCommandResult>
@@ -38,7 +39,7 @@ namespace Domain.Commands
             {
                 return new()
                 {
-                    ToDoTaskId = -1
+                    ToDoTaskDTO = null
                 };
             }
 
@@ -55,7 +56,13 @@ namespace Domain.Commands
 
             return new()
             {
-                ToDoTaskId = toDoTask.Id
+                ToDoTaskDTO = new()
+                {
+                    Id = toDoTask.Id,
+                    Name = toDoTask.Name,
+                    Description = toDoTask.Description,
+                    CreationDateTime = toDoTask.CreationDateTime
+                }
             };
         }
     }

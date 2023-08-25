@@ -14,7 +14,7 @@ namespace Web.Controllers
     public class SessionController : BaseController
     {
         private readonly IMediator _mediator;
-        private readonly ITokenHandler _tokenHandler;        
+        private readonly ITokenHandler _tokenHandler;
 
         public SessionController(IMediator mediator,
             ITokenHandler tokenHandler,
@@ -121,5 +121,6 @@ namespace Web.Controllers
 
             }, cancellationToken);
         }
+        
     }
 }

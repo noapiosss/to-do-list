@@ -1,0 +1,37 @@
+@model IList<Contracts.DTO.ToDoListDTO>
+
+@{
+    ViewData["Title"] = "MyLists";
+}
+
+<link rel="stylesheet" href="~/css/my-lists.css" />
+
+<div class="asd">
+    <h1 class="display-4">Your todos</h1>
+    
+    <div class="to-do-lists-wrapper">
+        @for(int i = 0; i < Model.Count; ++i)
+        {
+            <a class="link-card" href="/list/listtasks/@Model[i].Id">       
+                <div id=@Model[i].Id class="to-to-list-card">
+                    <div class="card-title">
+                        <div class="list-name">@Model[i].Name</div>
+                        <div class="delete-button" data-id=@Model[i].Id>x</div>
+                    </div>
+
+                    <div class="list-description">@Model[i].Description</div>
+                    <div class="list-creation-date">@Model[i].CreationDateTime</div>
+                </div>
+            </a>
+        }
+
+        <a href="/list/createnewlist">
+            <div class="create-to-do-list">
+                <label class="add-sign">+</label>
+            </div>
+        </a>
+        
+    </div>
+</div>
+
+<script src="~/js/my-lists.js"></script>
