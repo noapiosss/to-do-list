@@ -1,4 +1,4 @@
-# Some exampels
+# Some examples
 
 ![alt text](https://i.imgur.com/g1b8NS8.png)
 ![alt text](https://i.imgur.com/FyxUEKX.png)
