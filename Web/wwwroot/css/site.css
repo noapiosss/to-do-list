@@ -21,3 +21,8 @@ body {
   margin-bottom: 60px;
   background-color: #F0F2F5;
 }
+
+.sign-out-link, .sign-in-link
+{
+    text-decoration: none;
+}

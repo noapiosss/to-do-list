@@ -35,6 +35,7 @@ builder.Services.AddDomainServices((sp, options) =>
 });
 
 builder.Services.AddSingleton<ITokenHandler, Web.Services.TokenHandler>();
+builder.Services.AddSingleton<IUserService, Web.Services.UserService>();
 builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
@@ -57,6 +58,6 @@ app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=List}/{action=MyLists}/{id?}");
 
 app.Run();

@@ -89,6 +89,11 @@
     background-color: #3095FF;
 }
 
+.task-delete-btn:hover
+{
+    box-shadow: 0px 0px 5px 5px rgba(190, 197, 255, 0.623);
+}
+
 .add-new-task-wrapper
 {
     border-radius: 10px;
@@ -177,4 +182,9 @@
     font-size: x-large;
     color: white;
     background-color: #3095FF;
+}
+
+.add-new-task-submit-btn:hover
+{
+    box-shadow: 0px 0px 5px 5px rgba(190, 197, 255, 0.623);
 }

@@ -1,14 +1,41 @@
 let emailInput = document.querySelector(".email-input")
 let passwordInput = document.querySelector(".password-input")
-let submitBtn = document.querySelector(".sign-in-button-disable")
+let submitBtn = document.getElementById("sign-in-button")
 
-submitBtn.onclick = () =>
+emailInput.addEventListener("input", DataInput.bind(emailInput, emailInput, passwordInput, submitBtn, "email"))
+passwordInput.addEventListener("input", DataInput.bind(passwordInput, emailInput, passwordInput, submitBtn, "password"))
+
+function DataInput(emailInput, passwordInput, btn, from)
 {
+    if (from === "email")
+    {
+        emailInput.className = "email-input input-element"
+    }
+    else
+    {
+        passwordInput.className = "password-input input-element"
+    }
+
+    if (emailInput.Value === "" || passwordInput.value === "")
+    {
+        btn.className = "sign-in-button-disable input-element"
+        btn.addEventListener("click", SignIn.bind(submitBtn, emailInput, passwordInput))
+    }
+    else
+    {
+        btn.className = "sign-in-button-enable input-element"
+        btn.addEventListener("click", () => {});
+    }
+}
+
+function SignIn(emailInput, passwordInput)
+{    
     let user =
     {
-        login: emailInput.value,
+        email: emailInput.value,
         password: passwordInput.value
     }
+    console.log(user)
     
     fetch(`${window.location.origin}/api/session/signin`, {
         method: 'POST',
@@ -19,18 +46,23 @@ submitBtn.onclick = () =>
         body: JSON.stringify(user)
     })
     .then((response) => {
-        if (response.ok)
-        {
-            return response.json();
-        }
-        else
-        {
-            //some logic
-        }        
+        return response.json();    
     })
     .then((result) => {
-        document.cookie = `jwt=${result.token};path=/;`
-        //cookie.setItem("jwt", result.token)
-        window.location.replace(`${document.location.origin}/list/mylists`)
+        if (result.code == 40401)
+        {
+            emailInput.className = "email-input input-element-warning"
+        }
+        
+        if (result.code == 40301)
+        {
+            passwordInput.className = "password-input input-element-warning"
+        }
+
+        if (result.token)
+        {
+            document.cookie = `jwt=${result.token};path=/;`
+            window.location.replace(`${document.location.origin}/list/mylists`)
+        }
     })
 }

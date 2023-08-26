@@ -54,6 +54,10 @@ namespace Domain.Commands
             await _dbContext.ToDoTasks.AddAsync(toDoTask, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
 
+            ToDoList toDoList = await _dbContext.ToDoLists.FirstAsync(tdt => tdt.Id == request.ToDoListId, cancellationToken);
+            toDoList.CompletionDateTime = null;
+            await _dbContext.SaveChangesAsync(cancellationToken);
+
             return new()
             {
                 ToDoTaskDTO = new()

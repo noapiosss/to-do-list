@@ -18,6 +18,7 @@ namespace Domain.Commands
 
     public class UpdateToDoTaskStatusCommandResult
     {
+        public DateTime? CompletionDateTime { get; init; }
         public bool Success { get; init; }
         public bool ToDoTaskExists { get; init; }
     }
@@ -44,7 +45,8 @@ namespace Domain.Commands
             }
 
             ToDoTask toDoTask = await _dbContext.ToDoTasks.FirstAsync(tdt => tdt.Id == request.ToDoTaskId, cancellationToken);
-            toDoTask.CompletionDateTime = DateTime.UtcNow;
+
+            toDoTask.CompletionDateTime = toDoTask.CompletionDateTime is null ? DateTime.UtcNow : null;
             await _dbContext.SaveChangesAsync(cancellationToken);
 
             if (!await _dbContext.ToDoTasks
@@ -58,6 +60,7 @@ namespace Domain.Commands
         
             return new()
             {
+                CompletionDateTime = toDoTask.CompletionDateTime,
                 Success = true,
                 ToDoTaskExists = true
             };

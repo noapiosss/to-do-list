@@ -2,7 +2,7 @@ namespace Contracts.Http
 {
     public class SignInRequest
     {
-        public string Login { get; init; }
+        public string Email { get; init; }
         public string Password { get; init; }
     }
 

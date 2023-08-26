@@ -12,9 +12,9 @@
 
     @foreach(Contracts.DTO.ToDoTaskDTO task in Model.ToDoTaskDTOs)
     {
-        <div id=@task.Id class="task-wrapper task-in-progress">
+        <div id=@task.Id class="task-wrapper @(task.CompletionDateTime is null ? "task-in-progress" : "task-is-completed")">
             <div class="task-status">
-                <input type="checkbox" class="task-checkbox">
+                <input type="checkbox" data-id=@task.Id class="task-checkbox" @(task.CompletionDateTime is null ? "" : "checked")>
             </div>
 
             <div class="task-info">
@@ -24,8 +24,8 @@
                 </div>
                 
                 <div class="task-start-end">
-                    <div class="task-creation-date">Start at: @task.CreationDateTime</div>
-                    <div class="task-completion-date">End at: @task.CompletionDateTime</div>
+                    <div class="task-creation-date">Start at: @task.CreationDateTime.ToLocalTime().ToString("MM/dd/yyyy hh:mm")</div>
+                    <div class="task-completion-date" id="@task.Id-completion-date">End at: @task.CompletionDateTime?.ToLocalTime().ToString("MM/dd/yyyy hh:mm")</div>
                 </div>
 
                 <div class="task-delete-btn-wrapper">

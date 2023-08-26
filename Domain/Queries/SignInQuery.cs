@@ -12,14 +12,14 @@ namespace Domain.Queries
 {
     public class SignInQuery : IRequest<SignInQueryResult>
     {
-        public string Login { get; init; }
+        public string Email { get; init; }
         public string Password { get; init; }
     }
 
     public class SignInQueryResult
     {
         public bool Success { get; init; }
-        public bool LoginExists { get; init; }
+        public bool UserExists { get; init; }
         public bool PasswordIsCorrect { get; init; }
         public int UserId { get; init; }
     }
@@ -39,16 +39,16 @@ namespace Domain.Queries
 
         protected override async Task<SignInQueryResult> HandleInternal(SignInQuery request, CancellationToken cancellationToken)
         {
-            User user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == request.Login || u.Email == request.Login, cancellationToken);
+            User user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == request.Email, cancellationToken);
 
             string hashedPassword = _passwrodHelper.ComputeSha256Hash(request.Password);
 
             return new()
             {
-                Success = user is not null && !string.IsNullOrEmpty(user.Password) && user.Password == hashedPassword,
-                LoginExists = user is not null,
-                PasswordIsCorrect = user is not null && !string.IsNullOrEmpty(user.Password) && user.Password == hashedPassword,
-                UserId = user is not null && !string.IsNullOrEmpty(user.Password) && user.Password == hashedPassword ? user.Id : -1
+                Success = user is not null && user.Password == hashedPassword,
+                UserExists = user is not null,
+                PasswordIsCorrect = user is not null && user.Password == hashedPassword,
+                UserId = user is not null && user.Password == hashedPassword ? user.Id : -1
             };
         }
     }

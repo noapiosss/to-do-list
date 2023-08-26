@@ -34,7 +34,7 @@ public class ListController : Controller
     {
         if (!IsAuthorized(out int _))
         {
-            return Redirect("signin");
+            return RedirectToAction("SignIn", "Session");
         }
 
         GetToDoTasksByListIdQuery query = new() { ToDoListId = id };
@@ -47,7 +47,7 @@ public class ListController : Controller
     {
         if (!IsAuthorized(out int userId))
         {
-            return RedirectToAction("signin", "home");
+            return RedirectToAction("SignIn", "Session");
         }
 
         GetToDoListsByUserIdQuery query = new() { UserId = userId };
@@ -66,7 +66,7 @@ public class ListController : Controller
     {
         if (!IsAuthorized(out int userId))
         {
-            return Redirect("signin");
+            return RedirectToAction("SignIn", "Session");
         }
 
         CreateToDoListCommand command = new()

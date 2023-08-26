@@ -13,14 +13,14 @@ namespace Web.Controllers
     public class ListsHelperController : BaseController
     {
         private readonly IMediator _mediator;
-        private readonly ITokenHandler _tokenHandler;
+        private readonly IUserService _userService;
 
         public ListsHelperController(IMediator mediator,
-            ITokenHandler tokenHandler,
+            IUserService userService,
             ILogger<ListsHelperController> logger) : base(logger)
         {
             _mediator = mediator;
-            _tokenHandler = tokenHandler;
+            _userService = userService;
         }
 
         [HttpDelete]
@@ -28,9 +28,15 @@ namespace Web.Controllers
         {
             return SafeExecute(async () =>
             {
-                if (!IsAuthorized(out int _))
+                if (!_userService.IsAuthorized(out int userId))
                 {
+                    ErrorResponse errorResponse = new()
+                    {
+                        Code = ErrorCode.Unauthorized,
+                        Message = "Unathorized"
+                    };
 
+                    return ToActionResult(errorResponse);
                 }
 
                 DeleteToDoListCommand command = new() { ToDoListId = request.ListId };
@@ -46,9 +52,15 @@ namespace Web.Controllers
         {
             return SafeExecute(async () =>
             {
-                if (!IsAuthorized(out int _))
+                if (!_userService.IsAuthorized(out int userId))
                 {
+                    ErrorResponse errorResponse = new()
+                    {
+                        Code = ErrorCode.Unauthorized,
+                        Message = "Unathorized"
+                    };
 
+                    return ToActionResult(errorResponse);
                 }
 
                 CreateToDoTaskCommand command = new()
@@ -64,15 +76,52 @@ namespace Web.Controllers
             }, cancellationToken);
         }
 
-        private bool IsAuthorized(out int userId)
+        [HttpDelete("tasks")]
+        public Task<IActionResult> DeleteTask([FromBody] DeleteToDoTaskRequest request, CancellationToken cancellationToken)
         {
-            if (HttpContext.Request.Cookies.TryGetValue("jwt", out string token))
+            return SafeExecute(async () =>
             {
-                return _tokenHandler.Validate(token, out userId);
-            }
+                if (!_userService.IsAuthorized(out int userId))
+                {
+                    ErrorResponse errorResponse = new()
+                    {
+                        Code = ErrorCode.Unauthorized,
+                        Message = "Unathorized"
+                    };
 
-            userId = -1;
-            return false;
+                    return ToActionResult(errorResponse);
+                }
+
+                DeleteToDoTaskCommand command = new() { ToDoTaskId = request.TaskId };
+                DeleteToDoTaskCommandResult result = await _mediator.Send(command, cancellationToken);
+
+                return result.Success ? Ok() : BadRequest(result);
+
+            }, cancellationToken);
+        }
+
+        [HttpPut("tasks")]
+        public Task<IActionResult> UpdateTaskStatus([FromBody] UpdateTaskStatusRequest request, CancellationToken cancellationToken)
+        {
+            return SafeExecute(async () =>
+            {
+                if (!_userService.IsAuthorized(out int userId))
+                {
+                    ErrorResponse errorResponse = new()
+                    {
+                        Code = ErrorCode.Unauthorized,
+                        Message = "Unathorized"
+                    };
+
+                    return ToActionResult(errorResponse);
+                }
+
+                UpdateToDoTaskStatusCommand command = new() { ToDoTaskId = request.TaskId };
+                UpdateToDoTaskStatusCommandResult result = await _mediator.Send(command, cancellationToken);
+
+                return result.Success ? Ok(result) : BadRequest(result);
+
+            }, cancellationToken);
         }
     }
 }

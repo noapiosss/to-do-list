@@ -26,6 +26,18 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="List" asp-action="CreateNewList">New List</a>
                         </li>
                     </ul>
+
+                    <hr class="toggle-menu-vertical-separator">
+                    <span class="navbar-text" id="session-info">
+                        @if(!string.IsNullOrEmpty(Context.Request.Cookies["jwt"]))
+                        {                                
+                            <a class="sign-out-link" id="sign-out-link" href="/Session/Signout">Sign out</a>
+                        }
+                        else
+                        {
+                            <a class="sign-in-link" id="sign-out-link" href="/Session/Signin">Sign In</a>                                
+                        }
+                    </span>          
                 </div>
             </div>
         </nav>

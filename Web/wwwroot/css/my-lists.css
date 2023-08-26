@@ -46,7 +46,7 @@
 
 .card-title
 {
-    display: flex;
+    display: inline;
     position: relative;
 }
 
@@ -54,6 +54,32 @@
 {
     font-size: xx-large;
     font-weight: 500;
+}
+
+.progress-wrapper
+{
+    width: 100%;
+    background-color: #ffffff;
+    height: 20px;
+    margin-top: 10px;
+    position: relative;
+    border-radius: 10px;
+}
+
+.progress-bar
+{
+    border-radius: 10px;
+    color: black;
+    height: 100%;
+    background-color: #25b12c;
+}
+
+.progress-text
+{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .delete-button
@@ -64,7 +90,8 @@
     color: white;
 
     position: absolute;
-    right: 10px;
+    top: -5px;
+    right: 5px;
 }
 
 .delete-button:hover

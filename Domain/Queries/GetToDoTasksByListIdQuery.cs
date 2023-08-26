@@ -57,6 +57,7 @@ namespace Domain.Queries
 
             toDoListTasksPage.ToDoTaskDTOs = await _dbContext.ToDoTasks
                 .Where(tdt => tdt.ToDoListId == request.ToDoListId)
+                .OrderBy(tdt => tdt.Id)
                 .Select(tdl => new ToDoTaskDTO() 
                 {
                     Id = tdl.Id,
